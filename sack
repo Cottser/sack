@@ -71,11 +71,21 @@ display_shortcuts() {
 # Format: line_number:full_file_path
 process_shorcut_paths() {
     # Using : as the delimiter here should be fine, because : is not used in file names
-    awk -F':' '
-    {
-        gsub(/\[([0-9]{0,2}(;[0-9]{0,2}){0,2})?[m|K]/, "", $0);
-        print $2 " " $1;
-    };'
+    # @todo Make this DRYer at least.
+    # @todo Make this into a configurable template?
+    # if [[ "$editor" =~ 'subl' ]]; then
+        awk -F':' '
+        {
+            gsub(/\[([0-9]{0,2}(;[0-9]{0,2}){0,2})?[m|K]/, "", $0);
+            print $1 ":" $2;
+        };'
+    # else
+    #     awk -F':' '
+    #     {
+    #         gsub(/\[([0-9]{0,2}(;[0-9]{0,2}){0,2})?[m|K]/, "", $0);
+    #         print $2 " " $1;
+    #     };'
+    # fi
 }
 
 

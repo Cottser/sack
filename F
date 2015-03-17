@@ -16,7 +16,11 @@ else
 fi
 
 if [ -f $sack_shortcut ]; then
-    $editor +`sed -n "$1p" < $sack_shortcutfile`
+    if [[ "$editor" =~ 'subl' ]]; then
+      $editor `sed -n "$1p" < $sack_shortcutfile`
+    else
+      $editor +`sed -n "$1p" < $sack_shortcutfile`
+    fi
 else
     echo "Sack shortcuts file '~/.sack_shortcuts' not found."
     echo "Please define the env. variable SACK_SHORTCUT or check if the file exist."
